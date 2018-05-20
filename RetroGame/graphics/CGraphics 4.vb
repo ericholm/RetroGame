@@ -1,5 +1,4 @@
-﻿Imports System.Drawing.Drawing2D
-''' <summary>
+﻿''' <summary>
 ''' Extension of Graphics to support camera by offsetting drawing so that everything is drawn relative to camera
 ''' </summary>
 Public Class CGraphics
@@ -45,33 +44,20 @@ Public Class CGraphics
         End If
     End Sub
 
-    Public Sub DrawImage(image As Image, pos As Vector2f)
-        Dim rect = New Rectangle(MathUtil.VectorToPoint(pos), image.Size)
-        Debug.WriteLine(rect.ToString)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
-        MathUtil.scaleRect(rect, camera.zoomLevel)
-        Dim attr As New Imaging.ImageAttributes()
-        attr.SetWrapMode(WrapMode.TileFlipXY)
-        graphics.DrawImage(image, rect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attr)
-    End Sub
-
     Public Sub DrawImage(image As Image, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
+        rect.Offset(New Point(camera.pos.x, camera.pos.y))
         MathUtil.scaleRect(rect, camera.zoomLevel)
-        Dim attr As New Imaging.ImageAttributes()
-        attr.SetWrapMode(WrapMode.TileFlipXY)
-        'graphics.DrawImage(image, rect)
-        graphics.DrawImage(image, rect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attr)
+        graphics.DrawImage(image, rect)
     End Sub
 
     Public Sub FillEllipse(brush As Brush, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
+        rect.Offset(New Point(camera.pos.x, camera.pos.y))
         MathUtil.scaleRect(rect, camera.zoomLevel)
         graphics.FillEllipse(brush, rect)
     End Sub
 
     Public Sub FillRect(brush As Brush, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
+        rect.Offset(New Point(camera.pos.x, camera.pos.y))
         MathUtil.scaleRect(rect, camera.zoomLevel)
         graphics.FillRectangle(brush, rect)
     End Sub

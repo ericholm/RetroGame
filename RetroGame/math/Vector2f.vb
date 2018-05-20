@@ -1,5 +1,5 @@
 ﻿''' <summary>
-''' Represents a point in 2d space using decimals
+''' Represents a 2 dimensional vector
 ''' </summary>
 Public Class Vector2f
 
