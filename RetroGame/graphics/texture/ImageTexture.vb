@@ -10,4 +10,10 @@
         End Set
     End Property
 
+    Public Sub New(image As Image, size As Size)
+        Me.image = image
+        Me.width = size.Width
+        Me.height = size.Height
+    End Sub
+
 End Class

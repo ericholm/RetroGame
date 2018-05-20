@@ -15,6 +15,10 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.DoubleBuffered = True
+        Me.SetStyle(ControlStyles.UserPaint, True)
+        Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
         game = New Game(ClientSize.Width, ClientSize.Height)
         GameTimer.Interval = (1000 / GameConfig.FPS) 'Set Frame Rate
         GameTimer.Start()

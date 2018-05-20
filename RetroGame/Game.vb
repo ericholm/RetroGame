@@ -30,8 +30,8 @@ Public Class Game
     ''' </summary>
     ''' <param name="delta">Time delta since last execution in seconds</param>
     Public Sub tick(delta As Decimal)
-        x += 1
-        Dim cameraSpeed As Decimal = 200 * delta 'Temp Code to test camera
+        x += 5
+        Dim cameraSpeed As Decimal = GameConfig.CAMERA_MOVE_SPEED * delta 'Temp Code to test camera
         If InputHandler.isKeyPressed(Keys.D) Then
             camera.translate(cameraSpeed, 0)
         End If
@@ -51,9 +51,13 @@ Public Class Game
     ''' </summary>
     Public Sub render(g As Graphics)
         graphics.update(g)
+        graphics.drawTexture(New ImageTexture(My.Resources.MainRes.grass_tile_1, New Size(128, 128)), New Vector2f(0, 0))
+        graphics.drawTexture(New ImageTexture(My.Resources.MainRes.grass_tile_1, New Size(128, 128)), New Vector2f(0, 128))
+        graphics.drawTexture(New ImageTexture(My.Resources.MainRes.grass_tile_1, New Size(128, 128)), New Vector2f(128, 0))
+        graphics.drawTexture(New ImageTexture(My.Resources.MainRes.grass_tile_1, New Size(128, 128)), New Vector2f(128, 128))
         graphics.FillEllipse(Brushes.Blue, New Rectangle(New Point(x - gameWidth / 2, 0), New Size(size, size)))
         graphics.FillEllipse(Brushes.Red, New Rectangle(New Point(-gameWidth / 2, 0), New Size(size, size)))
-        graphics.drawTexture(New ShapeTexture(ShapeTexture.ShapeType.Ellipse, New Size(32, 32), Brushes.SaddleBrown), New Vector2f(0, 0))
+        'graphics.drawTexture(New ShapeTexture(ShapeTexture.ShapeType.Ellipse, New Size(32, 32), Brushes.SaddleBrown), New Vector2f(0, 0))
     End Sub
 
 End Class
