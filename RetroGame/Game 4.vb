@@ -14,7 +14,7 @@ Public Class Game
     Public Sub New(ByVal gameWidth, ByVal gameHeight)
         Me.gameWidth = gameWidth
         Me.gameHeight = gameHeight
-        camera = New Camera(1, 0, 0, gameWidth, gameHeight)
+        camera = New Camera(1, gameWidth / 2, gameHeight / 2, gameWidth, gameHeight)
         graphics = New CGraphics(camera)
     End Sub
 
@@ -32,16 +32,16 @@ Public Class Game
     Public Sub tick(delta As Decimal)
         x += 1
         Dim cameraSpeed As Decimal = 200 * delta 'Temp Code to test camera
-        If InputHandler.isKeyPressed(Keys.D) Then
+        If KeyHandler.isKeyPressed(Keys.D) Then
             camera.translate(cameraSpeed, 0)
         End If
-        If InputHandler.isKeyPressed(Keys.A) Then
+        If KeyHandler.isKeyPressed(Keys.A) Then
             camera.translate(-cameraSpeed, 0)
         End If
-        If InputHandler.isKeyPressed(Keys.W) Then
+        If KeyHandler.isKeyPressed(Keys.W) Then
             camera.translate(0, -cameraSpeed)
         End If
-        If InputHandler.isKeyPressed(Keys.S) Then
+        If KeyHandler.isKeyPressed(Keys.S) Then
             camera.translate(0, cameraSpeed)
         End If
     End Sub
@@ -51,9 +51,8 @@ Public Class Game
     ''' </summary>
     Public Sub render(g As Graphics)
         graphics.update(g)
-        graphics.FillEllipse(Brushes.Blue, New Rectangle(New Point(x - gameWidth / 2, 0), New Size(size, size)))
         graphics.FillEllipse(Brushes.Red, New Rectangle(New Point(-gameWidth / 2, 0), New Size(size, size)))
-        graphics.drawTexture(New ShapeTexture(ShapeTexture.ShapeType.Ellipse, New Size(32, 32), Brushes.SaddleBrown), New Vector2f(0, 0))
+        graphics.drawTexture(New ShapeTexture(), New Vector2f(10, 10))
     End Sub
 
 End Class

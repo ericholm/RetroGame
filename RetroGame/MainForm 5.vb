@@ -16,7 +16,7 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         game = New Game(ClientSize.Width, ClientSize.Height)
-        GameTimer.Interval = (1000 / GameConfig.FPS) 'Set Frame Rate
+        GameTimer.Interval = (1000 / 60) 'Set Frame Rate
         GameTimer.Start()
     End Sub
 
@@ -25,21 +25,13 @@ Public Class MainForm
         game.render(e.Graphics)
     End Sub
 
-#Region "Input Events"
-
     Private Sub MainForm_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        InputHandler.KeyDown(e)
+        KeyHandler.KeyDown(e)
     End Sub
 
     Private Sub MainForm_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
-        InputHandler.KeyUp(e)
+        KeyHandler.KeyUp(e)
     End Sub
-
-    Private Sub MainForm_MouseWheel(sender As Object, e As MouseEventArgs) Handles Me.MouseWheel
-        InputHandler.MouseScroll(e)
-    End Sub
-
-#End Region
 
     ''' <summary>
     ''' This reduces screen flickering due to windows forms not being optimised for game development and fast update rates

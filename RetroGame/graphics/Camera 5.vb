@@ -3,9 +3,7 @@ Imports RetroGame
 ''' <summary>
 ''' Camera object representing current viewport on screen
 ''' </summary>
-Public Class Camera : Implements MouseListener
-
-    'TODO: Implement scroll based on cursor position
+Public Class Camera
 
 #Region "Member Variables"
 
@@ -56,7 +54,6 @@ Public Class Camera : Implements MouseListener
         Me.pos = New Vector2f(x, y)
         Me.viewPortWidth = viewPortWidth
         Me.viewPortHeight = viewPortHeight
-        InputHandler.mouseListeners.Add(Me)
     End Sub
 
     ''' <summary>
@@ -65,16 +62,7 @@ Public Class Camera : Implements MouseListener
     ''' <param name="xAmount"></param>
     ''' <param name="yAmount"></param>
     Public Sub translate(ByVal xAmount As Decimal, ByVal yAmount As Decimal)
-        'Camera translations are inversed as they are relative to other objects
-        Me.pos.x -= xAmount
-        Me.pos.y -= yAmount
+        Me.pos.x += xAmount
+        Me.pos.y += yAmount
     End Sub
-
-    Public Sub MouseScroll(e As MouseEventArgs) Implements MouseListener.MouseScroll
-        Debug.WriteLine(System.Convert.ToDecimal(e.Delta / GameConfig.CAMERA_ZOOM_RATE_MODIFIER))
-        Me.zoomLevel += System.Convert.ToDecimal(e.Delta / GameConfig.CAMERA_ZOOM_RATE_MODIFIER) 'Zoom rate is inverse where higher results in slower
-        Me.zoomLevel = Math.Min(Math.Max(zoomLevel, GameConfig.MIN_CAMERA_ZOOM), GameConfig.MAX_CAMERA_ZOOM) 'Keeps zoomlevel within range
-        Debug.WriteLine(zoomLevel)
-    End Sub
-
 End Class

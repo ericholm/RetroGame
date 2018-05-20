@@ -27,11 +27,4 @@
     End Property
 #End Region
 
-    Public Sub New(shape As ShapeType, size As Size, brush As Brush)
-        Me.shape = shape
-        Me.width = size.Width
-        Me.height = size.Height
-        Me.brush = brush
-    End Sub
-
 End Class

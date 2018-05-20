@@ -2,10 +2,13 @@
 ''' Keyboard input wrapper to deal with hold key delay present in windows form by default
 ''' Instead this keeps track and stores key press values to get around that issue
 ''' </summary>
-Public Class KeyHandler
+Public Class InputHandler
 
     Private Shared keys_down As New Dictionary(Of Integer, Boolean)
     Public Shared keyListeners As New List(Of KeyListener)
+    Public Shared mouseListeners As New List(Of MouseListener)
+
+#Region "Keyboard Input"
 
     Public Shared Sub KeyDown(e As KeyEventArgs)
         Dim keyCode As Integer = e.KeyCode
@@ -57,5 +60,16 @@ Public Class KeyHandler
         Return False
     End Function
 
+#End Region
+
+#Region "Mouse Input"
+
+    Public Shared Sub MouseScroll(e As MouseEventArgs)
+        For Each listener As MouseListener In mouseListeners
+            listener.MouseScroll(e)
+        Next
+    End Sub
+
+#End Region
 
 End Class

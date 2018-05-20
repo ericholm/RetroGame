@@ -28,9 +28,6 @@ Public Class CGraphics
     Public Sub drawTexture(texture As Texture, pos As Vector2f)
         If texture.GetType.IsAssignableFrom(GetType(ImageTexture)) Then
             'Draw Image Texture
-            Dim boundingRect = New Rectangle(MathUtil.VectorToPoint(pos), New Size(texture.width, texture.height))
-            Dim imageTexture As ImageTexture = CType(texture, ImageTexture)
-            DrawImage(imageTexture.image, boundingRect)
         ElseIf texture.GetType.IsAssignableFrom(GetType(ShapeTexture)) Then
             'Draw Shape Texture
             Dim boundingRect = New Rectangle(MathUtil.VectorToPoint(pos), New Size(texture.width, texture.height))
@@ -44,21 +41,13 @@ Public Class CGraphics
         End If
     End Sub
 
-    Public Sub DrawImage(image As Image, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
-        MathUtil.scaleRect(rect, camera.zoomLevel)
-        graphics.DrawImage(image, rect)
-    End Sub
-
     Public Sub FillEllipse(brush As Brush, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
-        MathUtil.scaleRect(rect, camera.zoomLevel)
+        rect.Offset(New Point(camera.pos.x, camera.pos.y))
         graphics.FillEllipse(brush, rect)
     End Sub
 
     Public Sub FillRect(brush As Brush, rect As Rectangle)
-        rect.Offset(New Point(camera.pos.x + camera.viewPortWidth / 2, camera.pos.y + camera.viewPortHeight / 2))
-        MathUtil.scaleRect(rect, camera.zoomLevel)
+        rect.Offset(New Point(camera.pos.x, camera.pos.y))
         graphics.FillRectangle(brush, rect)
     End Sub
 

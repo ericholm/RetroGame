@@ -3,11 +3,9 @@ Imports RetroGame
 ''' <summary>
 ''' Camera object representing current viewport on screen
 ''' </summary>
-Public Class Camera : Implements MouseListener
+Public Class Camera
 
-    'TODO: Implement scroll based on cursor position
-
-#Region "Member Variables"
+#Region "Members"
 
     Private _zoomLevel As Decimal
     Public Property zoomLevel() As Decimal
@@ -39,12 +37,12 @@ Public Class Camera : Implements MouseListener
         End Set
     End Property
 
-    Private _pos As Vector2f
-    Public Property pos() As Vector2f
+    Private _pos As Point
+    Public Property pos() As Point
         Get
             Return _pos
         End Get
-        Set(ByVal value As Vector2f)
+        Set(ByVal value As Point)
             _pos = value
         End Set
     End Property
@@ -53,10 +51,9 @@ Public Class Camera : Implements MouseListener
 
     Public Sub New(zoomLevel As Decimal, x As Integer, y As Integer, viewPortWidth As Integer, viewPortHeight As Integer)
         Me.zoomLevel = zoomLevel
-        Me.pos = New Vector2f(x, y)
+        Me.pos = New Point(x, y)
         Me.viewPortWidth = viewPortWidth
         Me.viewPortHeight = viewPortHeight
-        InputHandler.mouseListeners.Add(Me)
     End Sub
 
     ''' <summary>
@@ -64,17 +61,7 @@ Public Class Camera : Implements MouseListener
     ''' </summary>
     ''' <param name="xAmount"></param>
     ''' <param name="yAmount"></param>
-    Public Sub translate(ByVal xAmount As Decimal, ByVal yAmount As Decimal)
-        'Camera translations are inversed as they are relative to other objects
-        Me.pos.x -= xAmount
-        Me.pos.y -= yAmount
+    Public Sub translate(ByVal xAmount As Integer, ByVal yAmount As Integer)
+        Me.pos = New Point(pos.X + xAmount, pos.Y + yAmount)
     End Sub
-
-    Public Sub MouseScroll(e As MouseEventArgs) Implements MouseListener.MouseScroll
-        Debug.WriteLine(System.Convert.ToDecimal(e.Delta / GameConfig.CAMERA_ZOOM_RATE_MODIFIER))
-        Me.zoomLevel += System.Convert.ToDecimal(e.Delta / GameConfig.CAMERA_ZOOM_RATE_MODIFIER) 'Zoom rate is inverse where higher results in slower
-        Me.zoomLevel = Math.Min(Math.Max(zoomLevel, GameConfig.MIN_CAMERA_ZOOM), GameConfig.MAX_CAMERA_ZOOM) 'Keeps zoomlevel within range
-        Debug.WriteLine(zoomLevel)
-    End Sub
-
 End Class

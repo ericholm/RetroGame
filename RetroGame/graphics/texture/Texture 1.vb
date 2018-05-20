@@ -22,4 +22,5 @@ Public Class Texture
             _height = value
         End Set
     End Property
+
 End Class
